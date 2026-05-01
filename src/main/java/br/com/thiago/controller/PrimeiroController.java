@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,16 @@ public class PrimeiroController {
     @PostMapping("/metodoComBodyParams")
     public String metodoComBodyParams(@RequestBody Usuario usuario) {
         return "Usuário recebido: " + usuario.username();
+    }
+
+    @PostMapping("/metodoComUmHeader")
+    public String metodoComUmHeader(@RequestHeader("Authorization") String authorization) {
+        return "Header recebido - Authorization: " + authorization;
+    }
+
+    @PostMapping("/metodoComTodosHeaders")
+    public String metodoComTodosHeaders(@RequestHeader Map<String, String> headers) {
+        return "Headers recebidos: " + headers;
     }
 
     @GetMapping("/{id}")
