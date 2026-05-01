@@ -1,5 +1,6 @@
 package br.com.thiago.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,19 @@ import java.util.Map;
 public class PrimeiroController {
 
     record Usuario(String username) {}
+
+    @GetMapping("/badRequest")
+    public ResponseEntity<String> badRequest() {
+        return ResponseEntity.badRequest().body("Bad Request!");
+    }
+
+    @GetMapping("/validarNumero")
+    public ResponseEntity<String> validarNumero(@RequestParam Integer numero) {
+        if (numero < 5) {
+            return ResponseEntity.badRequest().body("Número deve ser maior ou igual a 5");
+        }
+        return ResponseEntity.ok("Número válido: " + numero);
+    }
 
     @PostMapping("/metodoComBodyParams")
     public String metodoComBodyParams(@RequestBody Usuario usuario) {
